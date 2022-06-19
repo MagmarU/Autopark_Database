@@ -10,6 +10,7 @@
 <body>
     <div class="menu">
         <form action="handler.php" method = "POST" target = "_blank">
+            Пока
             <p>Введите код автобуса:</p>
             <input type="text" name = "CodeBus">
 
