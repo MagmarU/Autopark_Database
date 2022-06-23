@@ -6,7 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-
+    <script 
+        src="https://code.jquery.com/jquery-2.2.4.js"
+        integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+        crossorigin="anonymous">
+    </script>
+    <script src="ajax_form.js"></script>
     <title>Autopark</title>
 </head>
 
@@ -16,7 +21,7 @@
         <label for="Type_Bus">Типы автобусов</label>
         <div class="Type_Bus_Container">
                 <div class="menu">
-                    <form action="" method="POST">
+                    <form action="" method="POST" id= "Type_Bus_For_Ajax">
                         <p>Введите код автобуса:</p>
                         <input type="text" name="CodeBus">
 
@@ -29,8 +34,8 @@
                         <p>Количество мест</p>
                         <input type="text" name="NumbSeats">
 
-                        <button name="send" value="Добавить">Добавить</button>
-                        <button name="send" value="Удалить">Удалить</button>
+                        <button name = "send" value = "Добавить" type="button" id="btn_type_bus">Добавить</button>
+                        <button name = "send" type = "button" id="btn_type_bus" value="Удалить">Удалить</button>
                     </form>
                 </div>
                 <div class="Handler_php">
@@ -38,49 +43,26 @@
                     <?php
                     // Добавление данных в таблицу "Типы автобусов"
                     require_once 'connection.php';
-                    $action = $_POST['send'];
-                    switch ($action) {
-                        case 'Добавить':
-                            if (isset($_POST['CodeBus']) && isset($_POST['BrandBus']) && isset($_POST['ModelBus']) && isset($_POST['NumbSeats'])) {
-                                $link = mysqli_connect($host, $user, $password, $database)
-                                    or die("Ошибка" . mysqli_error($link));
-
-                                $CodeBus = htmlentities(mysqli_real_escape_string($link, $_POST['CodeBus']));
-                                $BrandBus = htmlentities(mysqli_real_escape_string($link, $_POST['BrandBus']));
-                                $ModelBus = htmlentities(mysqli_real_escape_string($link, $_POST['ModelBus']));
-                                $NumbSeats = htmlentities(mysqli_real_escape_string($link, $_POST['NumbSeats']));
-
-                                $query = "INSERT INTO `Типы автобусов`(`Код автобуса`, `Марка автобуса`, `Модель автобуса`, `Количество мест`) VALUES('$CodeBus' , '$BrandBus','$ModelBus','$NumbSeats')";
-
-                                $result = mysqli_query($link, $query) or die("Ошибка" . mysqli_error($link));
-                                if ($result) {
-                                    echo "Данные добавлены";
-                                }
-                                mysqli_close($link);
-                            }
-                            break;
+                    
                             //------------------------------------------------------------------------
 
-                        case 'Удалить':
                             // Удаление данных из таблицы "Типы автобусов" по первичному ключу
-                            if (isset($_POST['CodeBus'])) {
-                                $link = mysqli_connect($host, $user, $password, $database)
-                                    or die("Ошибка " . mysqli_error($link));
+                            // if (isset($_POST['CodeBus'])) {
+                            //     $link = mysqli_connect($host, $user, $password, $database)
+                            //         or die("Ошибка " . mysqli_error($link));
 
 
-                                $CodeBus = htmlentities(mysqli_real_escape_string($link, $_POST['CodeBus']));
+                            //     $CodeBus = htmlentities(mysqli_real_escape_string($link, $_POST['CodeBus']));
 
-                                $delete = "DELETE FROM `Типы автобусов` Where `Код автобуса` = '$CodeBus'";
+                            //     $delete = "DELETE FROM `Типы автобусов` Where `Код автобуса` = '$CodeBus'";
 
-                                $result = mysqli_query($link, $delete) or die("Ошибка " . mysqli_error($link));
-                                if ($result) {
-                                    echo "<span style='color:blue;'>Были внесены изменения</span>";
-                                }
-                                // закрываем подключение
-                                mysqli_close($link);
-                            }
-                            break;
-                    }
+                            //     $result = mysqli_query($link, $delete) or die("Ошибка " . mysqli_error($link));
+                            //     if ($result) {
+                            //         echo "<span style='color:blue;'>Были внесены изменения</span>";
+                            //     }
+                            //     // закрываем подключение
+                            //     mysqli_close($link);
+                            // }
 
                     //-----------------------------------------------------------------------
 
@@ -101,6 +83,7 @@
                     ?>
 
                 </div>
+                <div class="result_form"></div>
         </div>
     </section>
 
