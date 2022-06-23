@@ -1,0 +1,14 @@
+body{
+    max-width: 943px;
+    margin: 0 auto;
+}
+.hide{
+    display: none;
+}
+.hide + label ~ div{
+    display: none;
+}
+.hide:checked + label + div {
+    display: block;
+    padding: 10px;
+}
