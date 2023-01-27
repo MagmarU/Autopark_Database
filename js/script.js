@@ -8,16 +8,16 @@ let obj = {
     'Статистика': "`ID`, `Код автобуса`, `Табельный номер водителя`, `Статус`",
 };
 let primaryKeys = ['Код автобуса', 'Гаражный номер', 'Номер маршрута', 'Табельный номер водителя', 'Номер тех.талона', 'ID', 'ID'];
+
 $(document).ready( function() {
     $('form').submit( function(event) {
-
         event.preventDefault();
         
         let action = $(event.originalEvent.submitter).attr('name');
         var form = new FormData( this );
         let arr = [];
         let pk, valuePk;
-        
+       
         for( let [name, value] of form ) {
             if( primaryKeys.includes(name) ) {
                 pk = name;
@@ -25,10 +25,10 @@ $(document).ready( function() {
             }
             arr.push( `'${value}'` );
         }
-        
-        $.ajax({
+        if( event.originalEvent.submitter.name != 'showTable' ) {
+            $.ajax({
             type: 'POST',
-            url: 'handlerNew.php',
+            url: 'handler.php',
             data: {
                 name: this.name,
                 fieldsName: obj[this.name],
@@ -38,20 +38,21 @@ $(document).ready( function() {
                 values: arr.join(','),
                 
             },
-
             cache: false,
-            
         }).done(function( result ) {
             alert( result );
             getTable.apply( event.target );
         });
+        } else {
+            getTable.apply( this );
+        }
+        
         
     });
 
 function getTable() {
     let table = this.closest('.menu').nextElementSibling.querySelector('table');
     table.innerHTML = null;
-    console.log( table );
     let headerArr = obj[this.name].replace( /[`]/g, '' ).split(',');
     
     let tHead = document.createElement('tr');
@@ -62,7 +63,7 @@ function getTable() {
     }
     table.append( tHead );
     $.ajax({
-        url: 'handlerNew.php',
+        url: 'handler.php',
         method: 'GET',
         data: { 
             name: this.name,
@@ -73,4 +74,28 @@ function getTable() {
         $(table).append(respons);
     });
 }
+
+let foreignKeys = {
+    'Код автобуса': 'Типы автобусов',
+    'Номер маршрута': 'Маршрутный лист',
+    'Табельный номер водителя': 'Водители',
+    'Номер маршрута': 'Маршрутный лист',
+    'ID': 'Статистика'
+};
+
+$('.select-css').focus( function(event) {
+    event.target.innerHTML = null;
+    $.ajax({
+        type: 'GET',
+        url: 'updateSelects.php',
+        data: {
+            foreignKey: this.name,
+            keyLink: foreignKeys[this.name],
+        },
+        datatype: 'html',
+    }).done( function( response ) {
+        $( event.target ).append( response );
+    });
+});
+
 });

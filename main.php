@@ -13,7 +13,6 @@
 
 <body>
 
-
     <!-- Типы автобусов -->
     <section>
         <input type="checkbox" id="Type_Bus" class="hide"/>	
@@ -48,18 +47,7 @@
                         <input type="text" name="Гаражный номер" placeholder="Гаражный номер">
                         <p>Код автобуса:</p>
                         <div class="CodeBus_Col">
-                            <select class = "select-css" name=" ">
-                                <?php
-                                require_once 'connection.php';
-                                $link = mysqli_connect($host, $user, $password, $database)
-                                    or die("Ошибка " . mysqli_error($link));
-                                $sql = mysqli_query($link, 'SELECT `Код автобуса` FROM `Типы автобусов`');
-                                while ($result = mysqli_fetch_array($sql)) {
-                                    echo "<option>{$result['Код автобуса']}</option>";
-                                }
-                                mysqli_close($link);
-                                ?>
-                            </select>
+                            <select class = "select-css" name="Код автобуса"></select>
                         </div>
                         <input type="text" name=" " placeholder="Гос.номер">
                         <input type="text" name=" " placeholder="Год выпуска">
@@ -73,10 +61,6 @@
         </div>
     </section>
     <!-- ---------------- -->
-
-
-
-
 
     <!-- Маршрутный лист -->
     <section>
@@ -121,18 +105,7 @@
                         <input type="text" name=" " placeholder="Стаж работы">
                         <p>Номер маршрута:</p>
                         <div class="Route_Number_Col">
-                            <select class = "select-css" name=" " id="">
-                                <?php
-                                require_once 'connection.php';
-                                $link = mysqli_connect($host, $user, $password, $database)
-                                    or die("Ошибка " . mysqli_error($link));
-                                $sql = mysqli_query($link, 'SELECT `Номер маршрута` FROM `Маршрутный лист`');
-                                while ($result = mysqli_fetch_array($sql)) {
-                                    echo "<option>{$result['Номер маршрута']}</option>";
-                                }
-                                mysqli_close($link);
-                                ?>
-                            </select>
+                            <select class = "select-css" name="Номер маршрута"></select>
                         </div>
                     </div>
                     <button name="add" value="Добавить">Добавить</button>
@@ -156,18 +129,7 @@
                         <input type="text" name = "Номер тех.талона" placeholder="Номер тех.талона">
                         <p>Код автобуса:</p>
                         <div class="CodeBus_Col">
-                            <select class = "select-css" name=" " id="">
-                                <?php
-                                require_once 'connection.php';
-                                $link = mysqli_connect($host, $user, $password, $database)
-                                    or die("Ошибка " . mysqli_error($link));
-                                $sql = mysqli_query($link, 'SELECT `Код автобуса` FROM `Типы автобусов`');
-                                while ($result = mysqli_fetch_array($sql)) {
-                                    echo "<option>{$result['Код автобуса']}</option>";
-                                }
-                                mysqli_close($link);
-                                ?>
-                            </select>
+                            <select class = "select-css" name="Код автобуса" id=""></select>
                         </div>
                         <p>Дата прохождения ТО:</p>
                         <input type="date" name=" ">
@@ -197,48 +159,15 @@
                         <input type="text" name="ID" placeholder="ID">
                         <p>Код автобуса:</p>
                         <div class="CodeBus2_Col">
-                            <select class = "select-css" name=" " id="">
-                                <?php
-                                require_once 'connection.php';
-                                $link = mysqli_connect($host, $user, $password, $database)
-                                    or die("Ошибка " . mysqli_error($link));
-                                $sql = mysqli_query($link, 'SELECT `Код автобуса` FROM `Типы автобусов`');
-                                while ($result = mysqli_fetch_array($sql)) {
-                                    echo "<option>{$result['Код автобуса']}</option>";
-                                }
-                                mysqli_close($link);
-                                ?>
-                            </select>
+                            <select class = "select-css" name="Код автобуса" id=""></select>
                         </div>
                         <p>Табельный номер водителя</p>
                         <div class="Tab_numb_Col">
-                            <select class = "select-css" name=" " id="">
-                                <?php
-                                require_once 'connection.php';
-                                $link = mysqli_connect($host, $user, $password, $database)
-                                    or die("Ошибка " . mysqli_error($link));
-                                $sql = mysqli_query($link, 'SELECT `Табельный номер водителя` FROM `Водители`');
-                                while ($result = mysqli_fetch_array($sql)) {
-                                    echo "<option>{$result['Табельный номер водителя']}</option>";
-                                }
-                                mysqli_close($link);
-                                ?>
-                            </select>
+                            <select class = "select-css" name="Табельный номер водителя" id=""></select>
                         </div>
                         <p>Номер маршрута:</p>
                         <div class="Route_numb_Col">
-                            <select class = "select-css" name=" " id="">
-                                <?php
-                                require_once 'connection.php';
-                                $link = mysqli_connect($host, $user, $password, $database)
-                                    or die("Ошибка " . mysqli_error($link));
-                                $sql = mysqli_query($link, 'SELECT `Номер маршрута` FROM `Маршрутный лист`');
-                                while ($result = mysqli_fetch_array($sql)) {
-                                    echo "<option>{$result['Номер маршрута']}</option>";
-                                }
-                                mysqli_close($link);
-                                ?>
-                            </select>
+                            <select class = "select-css" name="Номер маршрута" id=""></select>
                         </div>
                         <p>Дата</p>
                         <input type="date" name=" ">
@@ -268,34 +197,21 @@
         <label for="Статистика">Статус автобусов</label>
         <div class="Статистика">
             <div class="menu">
-                <form action="" method="POST">
+                <form action="" method="POST" name = "Статистика">
                     <div class="style_input">
                     <p>ID:</p>
                     <div class="ID_Col">
-                        <select class = "select-css" name="ID" id="">
-                            <?php
-                            require_once 'connection.php';
-                            $link = mysqli_connect($host, $user, $password, $database)
-                                or die("Ошибка " . mysqli_error($link));
-                            $sql = mysqli_query($link, 'SELECT `ID` FROM `Статистика`');
-                            while ($result = mysqli_fetch_array($sql)) {
-                                echo "<option>{$result['ID']}</option>";
-                            }
-                            mysqli_close($link);
-                            ?>
-                        </select>
+                        <select class = "select-css" name="ID" id=""></select>
                     </div>
                     </div>
                     <button name="delete" value="Удалить">Удалить</button>
+                    <button name="showTable" value = "Просмотреть таблицу">Просмотреть таблицу</button>
                 </form>
             </div>
             <div id = "table"><table></table></div>
             </div>
         </div>
     </section>
-
-
-
 
 </body>
 
